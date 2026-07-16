@@ -1,12 +1,12 @@
 import axios from 'axios';
 
+// Fallback to your Render backend URL if VITE_API_URL is not set or empty
 const API_URL = import.meta.env.VITE_API_URL || 'https://ai-resume-analyzer-backend-7j2s.onrender.com';
 
 const api = axios.create({
   baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  // ⚠️ REMOVED 'Content-Type': 'application/json' here.
+  // We don't want to force JSON on every request, especially for file uploads.
   timeout: 30000,
 });
 
@@ -15,10 +15,14 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
       console.error('API Error:', error.response.data);
     } else if (error.request) {
+      // The request was made but no response was received
       console.error('Network Error:', error.request);
     } else {
+      // Something happened in setting up the request that triggered an Error
       console.error('Error:', error.message);
     }
     return Promise.reject(error);
@@ -27,15 +31,16 @@ api.interceptors.response.use(
 
 // ============ RESUME ENDPOINTS ============
 
+/**
+ * Upload a resume file (PDF/DOCX)
+ * IMPORTANT: Uses FormData. Do NOT manually set Content-Type header here.
+ */
 export const uploadResume = async (file) => {
   const formData = new FormData();
+  // Ensure the key name matches exactly what your backend expects (e.g., 'file')
   formData.append('file', file);
-  
-  const response = await api.post('/api/v1/upload-resume', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+
+  const response = await api.post('/api/v1/upload-resume', formData);
   return response.data;
 };
 
@@ -156,12 +161,10 @@ export const saveResumeVersion = async (data) => {
 };
 
 export const getResumeVersions = async (resumeId) => {
-  // This endpoint might not exist in backend - create a fallback
   try {
     const response = await api.get(`/api/v1/resume-versions/${resumeId}`);
     return response.data;
   } catch (error) {
-    // Return empty array if endpoint doesn't exist
     console.warn('Versions endpoint not available, returning empty array');
     return { versions: [] };
   }
