@@ -31,7 +31,7 @@ export const uploadResume = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
   
-  const response = await api.post('/upload-resume', formData, {
+  const response = await api.post('/api/v1/upload-resume', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -40,17 +40,17 @@ export const uploadResume = async (file) => {
 };
 
 export const getResumes = async () => {
-  const response = await api.get('/resumes');
+  const response = await api.get('/api/v1/resumes');
   return response.data;
 };
 
 export const getResume = async (resumeId) => {
-  const response = await api.get(`/resume/${resumeId}`);
+  const response = await api.get(`/api/v1/resume/${resumeId}`);
   return response.data;
 };
 
 export const analyzeResume = async (resumeId, jobDescription = null) => {
-  const response = await api.post('/analyze-resume', {
+  const response = await api.post('/api/v1/analyze-resume', {
     resume_id: resumeId,
     job_description: jobDescription,
   });
@@ -58,7 +58,7 @@ export const analyzeResume = async (resumeId, jobDescription = null) => {
 };
 
 export const generateReport = async (resumeId) => {
-  const response = await api.get(`/generate-report/${resumeId}`, {
+  const response = await api.get(`/api/v1/generate-report/${resumeId}`, {
     responseType: 'blob',
   });
   return response.data;
@@ -67,24 +67,24 @@ export const generateReport = async (resumeId) => {
 // ============ JOB MATCHING ============
 
 export const matchJob = async (data) => {
-  const response = await api.post('/match-job', data);
+  const response = await api.post('/api/v1/match-job', data);
   return response.data;
 };
 
 export const getMatchHistory = async (resumeId) => {
-  const response = await api.get(`/match-history/${resumeId}`);
+  const response = await api.get(`/api/v1/match-history/${resumeId}`);
   return response.data;
 };
 
 // ============ AI FEATURES ============
 
 export const generateHeatmap = async (resumeId) => {
-  const response = await api.post(`/generate-heatmap/${resumeId}`);
+  const response = await api.post(`/api/v1/generate-heatmap/${resumeId}`);
   return response.data;
 };
 
 export const rewriteSection = async (data) => {
-  const response = await api.post('/rewrite-resume-section', {
+  const response = await api.post('/api/v1/rewrite-resume-section', {
     resume_id: data.resume_id,
     section_text: data.section_text,
     section_type: data.section_type,
@@ -94,7 +94,7 @@ export const rewriteSection = async (data) => {
 };
 
 export const generateCoverLetter = async (data) => {
-  const response = await api.post('/generate-cover-letter', {
+  const response = await api.post('/api/v1/generate-cover-letter', {
     resume_id: data.resume_id,
     job_title: data.job_title,
     company: data.company,
@@ -104,7 +104,7 @@ export const generateCoverLetter = async (data) => {
 };
 
 export const analyzeSkillGap = async (data) => {
-  const response = await api.post('/analyze-skill-gap', {
+  const response = await api.post('/api/v1/analyze-skill-gap', {
     resume_id: data.resume_id,
     job_skills: data.job_skills,
   });
@@ -112,7 +112,7 @@ export const analyzeSkillGap = async (data) => {
 };
 
 export const generateLearningRoadmap = async (data) => {
-  const response = await api.post('/generate-learning-roadmap', {
+  const response = await api.post('/api/v1/generate-learning-roadmap', {
     resume_id: data.resume_id,
     target_role: data.target_role,
   });
@@ -120,7 +120,7 @@ export const generateLearningRoadmap = async (data) => {
 };
 
 export const generateInterviewQuestions = async (data) => {
-  const response = await api.post('/generate-interview-questions', {
+  const response = await api.post('/api/v1/generate-interview-questions', {
     resume_id: data.resume_id,
     job_title: data.job_title,
     job_description: data.job_description,
@@ -129,7 +129,7 @@ export const generateInterviewQuestions = async (data) => {
 };
 
 export const analyzeGithub = async (data) => {
-  const response = await api.post('/analyze-github', {
+  const response = await api.post('/api/v1/analyze-github', {
     username: data.username,
     user_id: data.user_id,
   });
@@ -137,7 +137,7 @@ export const analyzeGithub = async (data) => {
 };
 
 export const chatWithResume = async (data) => {
-  const response = await api.post('/chat-with-resume', {
+  const response = await api.post('/api/v1/chat-with-resume', {
     resume_id: data.resume_id,
     message: data.message,
   });
@@ -147,7 +147,7 @@ export const chatWithResume = async (data) => {
 // ============ VERSION CONTROL ============
 
 export const saveResumeVersion = async (data) => {
-  const response = await api.post('/save-resume-version', {
+  const response = await api.post('/api/v1/save-resume-version', {
     resume_id: data.resume_id,
     content: data.content,
     changes: data.changes,
@@ -158,7 +158,7 @@ export const saveResumeVersion = async (data) => {
 export const getResumeVersions = async (resumeId) => {
   // This endpoint might not exist in backend - create a fallback
   try {
-    const response = await api.get(`/resume-versions/${resumeId}`);
+    const response = await api.get(`/api/v1/resume-versions/${resumeId}`);
     return response.data;
   } catch (error) {
     // Return empty array if endpoint doesn't exist
@@ -170,7 +170,7 @@ export const getResumeVersions = async (resumeId) => {
 // ============ ANALYTICS ============
 
 export const trackAnalytics = async (data) => {
-  const response = await api.post('/track-analytics', {
+  const response = await api.post('/api/v1/track-analytics', {
     user_id: data.user_id,
     event_type: data.event_type,
     event_data: data.event_data,
@@ -179,14 +179,14 @@ export const trackAnalytics = async (data) => {
 };
 
 export const getAnalyticsDashboard = async (userId) => {
-  const response = await api.get(`/analytics/dashboard/${userId}`);
+  const response = await api.get(`/api/v1/analytics/dashboard/${userId}`);
   return response.data;
 };
 
 // ============ NEW FEATURE: BULK ANALYSIS ============
 
 export const bulkAnalyzeResumes = async (resumeIds, jobDescription = null) => {
-  const response = await api.post('/bulk-analyze', {
+  const response = await api.post('/api/v1/bulk-analyze', {
     resume_ids: resumeIds,
     job_description: jobDescription,
   });
@@ -196,7 +196,7 @@ export const bulkAnalyzeResumes = async (resumeIds, jobDescription = null) => {
 // ============ NEW FEATURE: RESUME COMPARE ============
 
 export const compareResumes = async (resumeId1, resumeId2) => {
-  const response = await api.post('/compare-resumes', {
+  const response = await api.post('/api/v1/compare-resumes', {
     resume_id_1: resumeId1,
     resume_id_2: resumeId2,
   });
@@ -206,7 +206,7 @@ export const compareResumes = async (resumeId1, resumeId2) => {
 // ============ NEW FEATURE: EXPORT DATA ============
 
 export const exportResumeData = async (resumeId, format = 'json') => {
-  const response = await api.get(`/export-resume/${resumeId}?format=${format}`, {
+  const response = await api.get(`/api/v1/export-resume/${resumeId}?format=${format}`, {
     responseType: format === 'pdf' ? 'blob' : 'json',
   });
   return response.data;
@@ -219,7 +219,7 @@ export default api;
 // ============ JOB SEARCH ============
 
 export const findJobs = async (data) => {
-  const response = await api.post('/find-jobs', {
+  const response = await api.post('/api/v1/find-jobs', {
     resume_id: data.resume_id,
     job_title: data.job_title || '',
     location: data.location || '',
@@ -230,14 +230,14 @@ export const findJobs = async (data) => {
 };
 
 export const getJobSearchHistory = async (resumeId) => {
-  const response = await api.get(`/job-search-history/${resumeId}`);
+  const response = await api.get(`/api/v1/job-search-history/${resumeId}`);
   return response.data;
 };
 
 // ============ SAVE JOBS ============
 
 export const saveJob = async (data) => {
-  const response = await api.post('/save-job', {
+  const response = await api.post('/api/v1/save-job', {
     resume_id: data.resume_id,
     job_title: data.job_title,
     company: data.company,
@@ -248,6 +248,6 @@ export const saveJob = async (data) => {
 };
 
 export const getSavedJobs = async (resumeId) => {
-  const response = await api.get(`/saved-jobs/${resumeId}`);
+  const response = await api.get(`/api/v1/saved-jobs/${resumeId}`);
   return response.data;
 };
