@@ -24,9 +24,7 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
 - [API Endpoints](#-api-endpoints)
-- [Screenshots](#-screenshots)
 - [Contributing](#-contributing)
 
 ---
@@ -87,7 +85,8 @@ Built with a modern dark glassmorphism UI design, the app offers a seamless expe
 |---|---|
 | **FastAPI** | REST API framework |
 | **Python 3.12** | Core language |
-| **Google Gemini AI** | AI analysis, rewriting, chat |
+| **Google Gemini AI** | AI analysis, rewriting, chat, and cover letters |
+| **spaCy** | NLP for extracting names and parsing text |
 | **SQLAlchemy** | ORM and database management |
 | **SQLite** | Database (development) |
 | **pdfplumber** | PDF text extraction |
@@ -101,16 +100,15 @@ Built with a modern dark glassmorphism UI design, the app offers a seamless expe
 |---|---|
 | **React 18** | UI framework |
 | **Vite** | Build tool and dev server |
-| **Tailwind CSS** | Utility-first styling |
-| **Framer Motion** | Animations |
-| **Axios** | HTTP client |
+| **Tailwind CSS** | Utility-first styling & Glassmorphism UI |
+| **Framer Motion** | Advanced animations and page transitions |
+| **Axios** | HTTP client for API requests |
 | **React Router DOM** | Client-side routing |
-| **React Hot Toast** | Notifications |
+| **React Hot Toast** | Toast notifications |
 | **React Dropzone** | File upload drag & drop |
-| **Heroicons** | Icon library |
-| **Plus Jakarta Sans** | Primary font |
-| **Space Grotesk** | Heading font |
-
+| **Heroicons** | Modern SVG icon library |
+| **Inter** | Primary body font |
+| **Plus Jakarta Sans** | Bold heading font |
 ---
 
 ## Project Structure
